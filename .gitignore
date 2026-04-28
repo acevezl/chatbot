@@ -12,6 +12,9 @@ venv/
 # Rasa models (generated)
 models/
 
+# Rasa cache
+.rasa/cache
+
 # Logs
 *.log
 

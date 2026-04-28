@@ -8,30 +8,38 @@
 version: "3.1"
 
 stories:
-
-- story: happy path
+- story: order pizza
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+    - intent: order_pizza
+    - action: pizza_type_form
+    - active_loop: pizza_type_form
+    - active_loop: null
+    - action: action_confirm_pizza_type_order
 
-- story: sad path 1
+- story: order drinks
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+    - intent: order_drinks
+    - action: drinks_form
+    - active_loop: drinks_form
+    - active_loop: null
+    - action: action_confirm_drinks
 
-- story: sad path 2
+- story: ask pizza sizes
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+    - intent: ask_pizza_sizes
+    - action: utter_pizza_sizes
+
+- story: ask pizza types
+  steps:
+    - intent: ask_pizza_types
+    - action: utter_pizza_types
+
+- story: ask drink types
+  steps:
+    - intent: ask_drink_types
+    - action: utter_drink_types
+
+- story: ask opening hours
+  steps:
+    - intent: ask_opening_hours
+    - action: utter_opening_hours

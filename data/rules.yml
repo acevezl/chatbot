@@ -2,7 +2,12 @@ version: "3.1"
 
 rules:
 
-- rule: Say goodbye anytime the user says goodbye
+- rule: Greet customers when they greet you
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Say goodbye when the user says goodbye
   steps:
   - intent: goodbye
   - action: utter_goodbye
@@ -11,3 +16,45 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Activate Pizza Type Form
+  steps:
+    - intent: order_pizza
+    - action: pizza_type_form
+    - active_loop: pizza_type_form
+
+- rule: Submit Pizza Type Form
+  condition:
+    - active_loop: pizza_type_form
+  steps:
+    - action: pizza_type_form
+    - active_loop: null
+    - slot_was_set:
+      - requested_slot: null
+    - action: action_confirm_pizza_type_order
+
+- rule: Activate Drink Form
+  steps:
+    - intent: order_drinks
+    - action: drinks_form
+    - active_loop: drinks_form
+
+- rule: Submit Drink Form
+  condition:
+    - active_loop: drinks_form
+  steps:
+    - action: drinks_form
+    - active_loop: null
+    - slot_was_set:
+      - requested_slot: null
+    - action: action_confirm_drinks
+
+- rule: Answer opening hours
+  steps:
+    - intent: ask_opening_hours
+    - action: utter_opening_hours
+
+- rule: Respond to unknown input
+  steps:
+    - intent: nlu_fallback
+    - action: utter_default

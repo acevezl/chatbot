@@ -11,32 +11,103 @@ version: "3.1"
 
 intents:
   - greet
+  - order_pizza
+  - order_drinks
+  - ask_opening_hours
+  - ask_pizza_sizes
+  - ask_pizza_types
+  - ask_drink_types
+  # - inform
   - goodbye
-  - affirm
-  - deny
+  - bot_challenge
   - mood_great
   - mood_unhappy
-  - bot_challenge
+  - affirm
+  - deny
+
+
+entities:
+  - pizza_size
+  - pizza_type
+  - drinks
+
+slots:
+  pizza_size:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: pizza_size
+        conditions:
+          - active_loop: pizza_type_form
+            requested_slot: pizza_size
+
+  pizza_type:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: pizza_type
+      conditions:
+          - active_loop: pizza_type_form
+            requested_slot: pizza_type
+  
+  drinks:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: drinks
+      conditions:
+        - active_loop: drinks_form
+
+forms:
+  pizza_type_form:
+    required_slots:
+      - pizza_size
+      - pizza_type
+  
+  drinks_form:
+    required_slots:
+      - drinks
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
+  - text: "Mamma mia! Welcome to Luigi's pizzeria! Tell-a me your order-a"
 
   utter_goodbye:
-  - text: "Bye"
+  - text: "Ciao!"
+
+  utter_ask_pizza_size:
+    - text: "What size would you like? (Small, Medium, Large)"
+
+  utter_pizza_sizes:
+    - text: "We make small, medium and large pizzas"
+
+  utter_ask_pizza_types:
+    - text: "What type would you like? (Margherita, Marinara, Hawaiian, Veggie, or Fungi)"
+
+  utter_pizza_types:
+    - text: "We make Margherita, Marinara, Hawaiian, Veggie, or Fungi"
+
+  utter_ask_drinks:
+    - text: "We have Coke, Fanta, and Pibb. What drinks would you like?"
+
+  utter_drink_types:
+    - text: "We have Coke, Fanta, and Pibb"
+
+  utter_opening_hours:
+    - text: "We are open-a every day-e from 13:00 to 22:00"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  - text: "Mamma mia! I am-a a bot-a, powered by Rasa"
+
+  utter_default:
+    - text: "Sorry, I didn't understand-a. You can order pizza or ask about opening hours"
+
+actions:
+  - action_session_start
+  - action_confirm_pizza_type_order
+  - action_confirm_drinks
+  
 
 session_config:
   session_expiration_time: 60

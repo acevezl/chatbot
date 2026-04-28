@@ -10,60 +10,462 @@
 version: "3.1"
 
 nlu:
-- intent: greet
-  examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
-    - sup
-    - waddup
-    - what's up
-    - yo
-
-- intent: goodbye
-  examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
-    - c u
-    - ciao
-    - later
-
 - intent: affirm
   examples: |
     - yes
-    - y
-    - indeed
+    - yeah
+    - yep
+    - yup
     - of course
+    - sure
+    - sure thing
+    - absolutely
+    - definitely
+    - for sure
+    - sounds good
     - that sounds good
+    - that works
+    - works for me
+    - ok
+    - okay
+    - alright
+    - all right
+    - fine
+    - great
+    - awesome
+    - perfect
+    - exactly
     - correct
+    - right
+    - that's right
+    - you got it
+    - go ahead
+    - please do
+    - yes please
+    - yeah sure
+    - why not
+    - I agree
+    - I do
+    - I think so
+    - I guess so
+    - makes sense
+    - that makes sense
+    - sounds right
+    - indeed
+    - certainly
+    - by all means
+    - totally
+    - 100 percent
+    - 100%
+    - ok sure
+    - yes that's fine
+    - that's fine
+    - no problem
+    - not a problem
+
+- intent: ask_drink_types
+  examples: |
+    - what drinks do you have
+    - what drinks do you offer
+    - what drinks are available
+    - what beverages do you have
+    - what beverages do you offer
+    - what beverages are available
+    - what can I drink
+    - what drinks can I get
+    - what drinks can I order
+    - what drinks are on the menu
+    - what beverages are on the menu
+    - what drink options do you have
+    - what beverage options do you have
+    - what drink options are available
+    - what beverages can I choose from
+    - what drinks can I choose from
+    - what are my drink options
+    - what are my beverage options
+    - what drinks do you sell
+    - what beverages do you sell
+    - what kind of drinks do you have
+    - what kind of beverages do you have
+    - what types of drinks do you have
+    - what types of beverages do you have
+    - tell me your drinks
+    - tell me your beverage options
+    - tell me what drinks you have
+    - tell me what beverages you have
+    - list the drinks
+    - list your drinks
+    - list the beverages
+    - show me the drinks
+    - show me your drinks
+    - show me the beverage menu
+    - can I see the drinks
+    - can I see the beverage menu
+    - what drinks are there
+    - what beverages are there
+    - what drinks are available right now
+    - what beverages are available right now
+    - what drinks do you currently have
+    - what beverages do you currently have
+    - what can I choose to drink
+    - what are the available drinks
+    - what are the available beverages
+    - what drinks do you serve
+    - what beverages do you serve
+    - what drinks can I pick from
+    - what beverages can I pick from
+    - what drinks are in stock
+
+
+- intent: ask_opening_hours
+  examples: |
+    - what time are you open
+    - what are your opening hours
+    - when do you open
+    - when do you close
+    - what time do you open
+    - what time do you close
+    - are you open today
+    - are you open now
+    - are you still open
+    - are you closed now
+    - what are your hours
+    - tell me your hours
+    - shop hours
+    - opening hours please
+    - your opening times
+    - what time does the shop open
+    - what time does the shop close
+    - when is the pizzeria open
+    - when is the restaurant open
+    - when can I order
+    - when can I pick up pizza
+    - what time can I pick up my order
+    - what time can I come pick up pizza
+    - what time do you start serving
+    - what time do you stop serving
+    - when do you start serving pizza
+    - when do you stop serving pizza
+    - what time are you open until
+    - how late are you open
+    - how late do you stay open
+    - how long are you open
+    - what time do you shut
+    - what time do you shut down
+    - are you open in the evening
+    - are you open this evening
+    - are you open this afternoon
+    - are you open tomorrow
+    - what are your hours today
+    - what are your hours tomorrow
+    - when are you open today
+    - when are you open tomorrow
+    - can I order now
+    - can I order at this time
+    - can I still order
+    - is the kitchen open
+    - is the pizzeria open right now
+    - are you guys open
+    - are you open for pickup
+    - what time can I get pizza
+    - what time are you available
+
+- intent: ask_pizza_sizes
+  examples: |
+    - what sizes do you have
+    - what pizza sizes are available
+    - what sizes of pizza do you offer
+    - what sizes can I order
+    - what sizes are there
+    - what are the pizza sizes
+    - what size pizzas do you sell
+    - what size options do you have
+    - what size options are available
+    - what are my size options
+    - tell me the sizes
+    - tell me your pizza sizes
+    - tell me the available sizes
+    - what sizes can I choose from
+    - what are the available sizes
+    - list the pizza sizes
+    - list your sizes
+    - show me the sizes
+    - can I see the sizes
+    - what sizes are on the menu
+    - what sizes do you serve
+    - what size pizzas can I get
+    - what sizes do you make
+    - what size pizzas are available
+    - what size can I pick
+    - what sizes are offered
+    - what size options are there
+    - what pizza sizes can I choose
+    - what sizes can you make
+    - what are your size choices
+    - what size options do I have
+    - what size pizzas do you have
+    - what sizes are you offering
+    - what sizes do you sell
+    - what are the pizza size options
+    - what sizes do you carry
+    - what pizza sizes are there
+    - what size pizzas are on the menu
+    - can you tell me the sizes
+    - can you list the sizes
+    - give me the pizza sizes
+    - give me your size options
+    - what are the different sizes
+    - what size categories do you have
+    - what sizes are available right now
+    - what sizes do you currently have
+    - what size pizzas can I order
+    - what are the size choices
+    - what sizes can I get
+    - what pizza sizes do you offer
+
+- intent: ask_pizza_types
+  examples: |
+    - what types of pizza do you have
+    - what pizzas do you offer
+    - what kinds of pizza are available
+    - what pizza options do you have
+    - what can I order
+    - what pizzas can I get
+    - what are your pizzas
+    - what flavors of pizza do you have
+    - what kinds of pizzas do you sell
+    - what pizza varieties do you have
+    - what's on the menu
+    - show me the menu
+    - can I see the pizza menu
+    - what's your menu
+    - what do you serve
+    - what food do you have
+    - what pizzas are on your menu
+    - tell me what pizzas you have
+    - tell me your pizza options
+    - tell me the available pizzas
+    - what choices of pizza do you have
+    - what pizza choices are there
+    - what kind of pizza can I order
+    - what are my options for pizza
+    - what are the pizza options
+    - list your pizzas
+    - list the pizza types
+    - list your menu
+    - give me the menu
+    - give me the pizza menu
+    - can you show me your pizzas
+    - can you list your pizzas
+    - what pizzas are available right now
+    - what pizzas do you currently have
+    - what pizzas are in stock
+    - what can I choose from
+    - what can I pick from
+    - what are the available options
+    - what are the available pizza types
+    - what do you have available
+    - what pizzas can I choose from
+    - what are your specialties
+    - what pizzas do you recommend
+    - what's good here
+    - what should I order
+    - what pizzas are popular
+    - what pizzas do people usually get
+    - what kinds of pizza can you make
+    - what pizza styles do you offer
+    - what are your pizza selections
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
 
 - intent: deny
   examples: |
     - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
+    - nope
+    - nah
     - not really
+    - no way
+    - absolutely not
+    - definitely not
+    - I don't think so
+    - I dont think so
+    - I don't want that
+    - I dont want that
+    - I do not want that
+    - I don't want to
+    - I dont want to
+    - I do not want to
+    - no thanks
+    - no thank you
+    - not now
+    - maybe not
+    - I guess not
+    - I would rather not
+    - I'd rather not
+    - I would prefer not to
+    - I prefer not to
+    - that's not right
+    - that is not right
+    - that's incorrect
+    - that is incorrect
+    - wrong
+    - that's wrong
+    - not correct
+    - that doesn't work
+    - that does not work
+    - this doesn't work
+    - this does not work
+    - that won't work
+    - that will not work
+    - not interested
+    - I'm not interested
+    - I am not interested
+    - I don't like that
+    - I dont like that
+    - I do not like that
+    - stop
+    - please stop
+    - don't do that
+    - do not do that
+    - cancel
+    - never mind
+    - forget it
+
+- intent: goodbye
+  examples: |
+    - goodbye
+    - bye
+    - bye bye
+    - see you
+    - see you later
+    - see you soon
+    - talk to you later
+    - catch you later
+    - see ya
+    - later
+    - peace
+    - I'm out
+    - I have to go
+    - gotta go
+    - got to go
+    - I need to leave
+    - I should get going
+    - I'll talk to you later
+    - talk soon
+    - until next time
+    - have a good day
+    - have a nice day
+    - have a great day
+    - have a good one
+    - take care
+    - take it easy
+    - stay safe
+    - be safe
+    - have a good evening
+    - have a good night
+    - good night
+    - good night and take care
+    - goodbye for now
+    - farewell
+    - farewell for now
+    - it was nice talking to you
+    - nice talking to you
+    - it was great chatting with you
+    - thanks, bye
+    - thanks, goodbye
+    - alright, bye
+    - ok bye
+    - okay bye
+    - bye for now
+    - see you around
+    - see you next time
+    - I'll catch you later
+    - I'll see you later
+    - until we meet again
+    - signing off
+
+- intent: greet
+  examples: |
+    - hello
+    - hi
+    - hey
+    - hey there
+    - hello there
+    - hi there
+    - hey buddy
+    - hey friend
+    - good morning
+    - good afternoon
+    - good evening
+    - morning
+    - afternoon
+    - evening
+    - what's up
+    - whats up
+    - sup
+    - yo
+    - howdy
+    - hiya
+    - hey you
+    - hello my friend
+    - hi again
+    - hey again
+    - hello again
+    - nice to see you
+    - good to see you
+    - long time no see
+    - hi how are you
+    - hello how are you
+    - hey how are you
+    - how are you doing
+    - how's it going
+    - how is it going
+    - how are things
+    - how have you been
+    - hope you're doing well
+    - hope you are doing well
+    - greetings
+    - warm greetings
+    - a warm hello
+    - hello hello
+    - hey hey
+    - hi hi
+    - hello there friend
+    - hey there friend
+    - hi there friend
+    - good day
+    - top of the morning
+    - pleasure to meet you
+    - wassup
+
+- intent: inform
+  examples: |
+    - I'd like a [large](pizza_size) pizza
+    - I'd like a [margherita](pizza_type) pizza
+    - I'd like a [large](pizza_size) [marinara](pizza_type) pizza
+    - I'd like to order a [large](pizza_size) pizza
+    - I'd like to order a [margherita](pizza_type) pizza
+    - I'd like to order a [large](pizza_size) [marinara](pizza_type) pizza
+    - I want a [large](pizza_size) pizza
+    - I want a [margherita](pizza_type) pizza
+    - I want a [large](pizza_size) [marinara](pizza_type) pizza
+    - Order a [large](pizza_size) pizza
+    - Order a [margherita](pizza_type) pizza
+    - Order a [large](pizza_size) [marinara](pizza_type) pizza
+    - Make me a [large](pizza_size) pizza
+    - Make me a [margherita](pizza_type) pizza
+    - Make me a [large](pizza_size) [marinara](pizza_type) pizza
+    - [large](pizza_size)
+    - [large](pizza_size) pizza
+    - [small](pizza_size) [veggie](pizza_type)
+    - [medium](pizza_size) [hawaiian](pizza_type) pizza
+    - [s](pizza_size)
+    - [s](pizza_size) pizza
 
 - intent: mood_great
   examples: |
@@ -99,9 +501,122 @@ nlu:
     - so saad
     - so sad
 
-- intent: bot_challenge
+- intent: order_drinks
   examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+    - I want a drink
+    - I want to order a drink
+    - I'd like a drink
+    - can I get a drink
+    - I need a drink
+    - give me a drink
+    - can I order a drink
+    - I want something to drink
+    - I'd like something to drink
+    - can I get something to drink
+    - I want a soda
+    - I want a coke
+    - I want a pepsi
+    - I want a water
+    - I want a bottle of water
+    - I want a sparkling water
+    - I want a juice
+    - I want an orange juice
+    - I want an apple juice
+    - I want a soft drink
+    - I'd like a soda
+    - I'd like a coke
+    - I'd like a pepsi
+    - I'd like a water
+    - I'd like a juice
+    - can I get a soda
+    - can I get a coke
+    - can I get a water
+    - can I get a juice
+    - get me a drink
+    - get me a soda
+    - order me a drink
+    - order me a soda
+    - I want to add a drink
+    - I'd like to add a drink
+    - can I add a drink to my order
+    - add a drink
+    - add a soda
+    - add a coke
+    - add a water
+    - I want drinks
+    - I'd like drinks
+    - can I order drinks
+    - I want a beverage
+    - I'd like a beverage
+    - can I get a beverage
+    - I want a cold drink
+    - I'd like a cold drink
+    - can I get a cold drink
+    - let me order a drink
+
+- intent: order_pizza
+  examples: |
+    - I want to order a pizza
+    - I'd like to order a pizza
+    - can I order a pizza
+    - I want pizza
+    - I need a pizza
+    - let me order a pizza
+    - I'd like a pizza
+    - can you get me a pizza
+    - I want to get a pizza
+    - I feel like ordering pizza
+    - I want to buy a pizza
+    - I'd like to place a pizza order
+    - I want to place an order for pizza
+    - can I place a pizza order
+    - I want to order food
+    - I'd like to order food
+    - can I order some food
+    - I want to order something to eat
+    - I need something to eat
+    - I'm hungry, I want pizza
+    - I'm hungry, can I order pizza
+    - get me a pizza
+    - order me a pizza
+    - can you order a pizza for me
+    - I want to order delivery
+    - I want pizza delivery
+    - I want to order a large pizza
+    - I want to order a pepperoni pizza
+    - I want to order a cheese pizza
+    - I want to order a pizza with toppings
+    - I want to order a pizza right now
+    - I'd like to order a pizza for delivery
+    - I'd like to order a pizza for pickup
+    - can I order a pizza for delivery
+    - can I order a pizza for pickup
+    - I want to place an order
+    - I'd like to place an order
+    - can I make an order
+    - I want to order dinner
+    - I'd like to order dinner
+    - can I order dinner
+    - I want to get dinner
+    - I need to order dinner
+    - I want to order takeout
+    - I'd like to order takeout
+    - can I order takeout
+    - I want to order something
+    - I'd like to order something
+    - I want to start an order
+    - let's order pizza
+
+- lookup: pizza_size
+  examples: |
+    - large
+    - medium
+    - small
+
+- lookup: pizza_type
+  examples: |
+    - margherita
+    - marinara
+    - hawaiian
+    - veggie
+    - fungi
