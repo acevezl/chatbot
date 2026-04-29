@@ -10,28 +10,49 @@
 version: "3.1"
 
 intents:
+  # Greet / Goodbye intents
   - greet
-  - order_pizza
-  - order_drinks
+  - goodbye
+  # Intents for placing a pizza / drinks order
+  - start_order
+  - add_pizza_to_order
+  - add_drink_to_order
+  - inform
+  - done_ordering
+  - confirm_order
+  - deny_order
+  - restart_order
+  - summarize_order
+  # Intents for asking for information
   - ask_opening_hours
   - ask_pizza_sizes
   - ask_pizza_types
   - ask_drink_types
-  # - inform
-  - goodbye
+  - ask_promotions
+  # These ones were part of the initial template... 
   - bot_challenge
   - mood_great
   - mood_unhappy
-  - affirm
-  - deny
 
 
 entities:
   - pizza_size
   - pizza_type
-  - drinks
+  - drink
+
 
 slots:
+  # Slots para pedir la orden (temporal)
+  pizza_type:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: pizza_type
+      conditions:
+          - active_loop: pizza_form
+            requested_slot: pizza_type
+
   pizza_size:
     type: text
     influence_conversation: true
@@ -39,75 +60,119 @@ slots:
       - type: from_entity
         entity: pizza_size
         conditions:
-          - active_loop: pizza_type_form
+          - active_loop: pizza_form
             requested_slot: pizza_size
 
-  pizza_type:
+  drink:
     type: text
+    influence_conversation: true
     mappings:
     - type: from_entity
-      entity: pizza_type
+      entity: drink
       conditions:
-          - active_loop: pizza_type_form
-            requested_slot: pizza_type
-  
-  drinks:
-    type: text
+        - active_loop: drink_form
+          requested_slot: drink
+
+  # Slots para llevar la cuenta de la orden (long-term)
+  order_items:
+    type: list
     mappings:
-    - type: from_entity
-      entity: drinks
-      conditions:
-        - active_loop: drinks_form
+      - type: custom
+
+  order_total:
+    type: float
+    mappings:
+      - type: custom
+
+  order_started:
+    type: bool
+    mappings:
+      - type: custom
 
 forms:
-  pizza_type_form:
+  order_form:
     required_slots:
-      - pizza_size
+      - order_items
+    
+  pizza_form:
+    required_slots:
       - pizza_type
+      - pizza_size
   
-  drinks_form:
+  drink_form:
     required_slots:
-      - drinks
+      - drink
+
 
 responses:
+  # Greet / Goodbye
   utter_greet:
-  - text: "Mamma mia! Welcome to Luigi's pizzeria! Tell-a me your order-a"
+  - text: "Mamma mia! Welcome to Luigi-and-Dany's pizzeria! What can I get you?"
 
   utter_goodbye:
   - text: "Ciao!"
 
+  # Order
+  utter_start_order:
+    - text: "Alright, let's start your order. What would you like?"
+
   utter_ask_pizza_size:
     - text: "What size would you like? (Small, Medium, Large)"
 
-  utter_pizza_sizes:
-    - text: "We make small, medium and large pizzas"
+  utter_ask_pizza_type:
+    - text: "We have Margherita, Marinara, Hawaiian, Veggie, or Funghi, what would you like?"
 
-  utter_ask_pizza_types:
-    - text: "What type would you like? (Margherita, Marinara, Hawaiian, Veggie, or Fungi)"
+  utter_ask_drink_type:
+    - text: "We have Coke, Fanta, and Pibb. What would you like?"
+  
+  utter_ask_what_else:
+    - text: "Alright. What else?"
+  
+  utter_empty_order:
+    - text: "It seems you haven't ordered anything. What can I get you?"
+
+  utter_confirm:
+    - text: "Does this sound good?"
+
+  utter_restart_order: 
+    - text: "Alright. Let's start over, what can I get you?"
+  
+  # Information
+  utter_pizza_sizes:
+    - text: "We make small (12 €), medium (14 €) and large (18 €) pizzas"
 
   utter_pizza_types:
-    - text: "We make Margherita, Marinara, Hawaiian, Veggie, or Fungi"
-
-  utter_ask_drinks:
-    - text: "We have Coke, Fanta, and Pibb. What drinks would you like?"
+    - text: "We make Margherita, Marinara, Hawaiian, Veggie, or Funghi."
 
   utter_drink_types:
-    - text: "We have Coke, Fanta, and Pibb"
+    - text: "We have Coke, Fanta, and Pibb, all drinks are 3 €"
+
+  utter_promotions:
+    - text: "All margherita pizzas of all sizes are 2 € off!"
 
   utter_opening_hours:
     - text: "We are open-a every day-e from 13:00 to 22:00"
 
+
+  # Default
   utter_iamabot:
-  - text: "Mamma mia! I am-a a bot-a, powered by Rasa"
+    - text: "Mamma mia! I am-a a bot-a, powered by Rasa"
 
   utter_default:
-    - text: "Sorry, I didn't understand-a. You can order pizza or ask about opening hours"
+    - text: "Sorry, I didn't understand-a. I'm a Pizza Bot from Luigi-and-Dany's Pizzeria.\nYou can place an order or ask about pizzas, sizes, drinks, and opening hours."
+
 
 actions:
-  - action_session_start
-  - action_confirm_pizza_type_order
-  - action_confirm_drinks
-  
+  # Start order / Restart si el usario dice que no está bien
+  - action_start_restart_order
+  # Add pizza to order
+  - action_add_pizza_to_order
+  # Add drink to order
+  - action_add_drink_to_order
+  # Show order and ask user to confirm
+  - action_confirm_order
+  # Submit confirmed order
+  - action_submit_order
 
 session_config:
   session_expiration_time: 60

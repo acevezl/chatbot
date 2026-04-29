@@ -26,69 +26,216 @@
 #
 #         return []
 
-import random
-import string
-
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SessionStarted, ActionExecuted
+from rasa_sdk.events import SessionStarted, ActionExecuted, SlotSet
 
-class ActionSessionStart(Action):
-	def name(self):
-		return "action_session_start"
+import random
+import string
 
-	def run(self, dispatcher, tracker, domain):
-		# Forzar utter greeet para que nos diga hola al principio
-		dispatcher.utter_message(response="utter_greet")
+PIZZA_PRICES = {
+	"small": 12,
+	"medium": 14,
+	"large": 18,
+}
 
-		return [SessionStarted(), ActionExecuted("action_listen")]
+PIZZA_PROMOS = {
+	"margherita": -2,
+}
+
+DRINK_PRICE = 3
 
 
-class ActionConfirmPizzaOrder(Action):
-	def name(self):
-		return "action_confirm_pizza_type_order"
+# Function to get entity (pizza_size, pizza_drink, pizza_type, etc.)
+def get_entity(tracker: Tracker, entity_name: Text):
+	entities = tracker.latest_message.get("entities", [])
 
-	def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain):
-		pizza_size = tracker.get_slot("pizza_size")
-		pizza_type = tracker.get_slot("pizza_type")
+	for entity in entities:
+		if entity.get("entity") == entity_name:
+			return entity.get("value")
 
-		base_prices = {
-			"small": 12,
-			"medium": 14,
-			"large": 18,
+	return None
+
+# Function to summarize order
+def summarize_order(tracker: Tracker):
+	items = tracker.get_slot("order_items") or []
+	total = tracker.get_slot("order_total") or 0
+
+	if not items:
+		return None
+
+	lines = []
+
+	for item in items:
+		if item["type"] == "pizza":
+			lines.append(f"+ {item['size']} {item['name']} pizza: {item['price']} €")
+			if item['promo'] != 0:
+				lines.append(f"   - promo: {item['promo']} €")
+		elif item["type"] == "drink":
+			lines.append(f"+ {item['name']}: {item['price']} €")
+
+	text=(
+		"Here's your order:\n"
+		+ "\n".join(lines)
+		+ f"\n====================\nTotal: {total} €"
+	)
+
+	return text
+	
+
+class ActionStartRestartOrder(Action):
+
+	def name(self) -> Text:
+		return "action_start_restart_order"
+
+	def run(self, dispatcher: CollectingDispatcher,
+			tracker: Tracker,
+			domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+		return [
+			SlotSet("order_started", True),
+			SlotSet("order_items", []),
+			SlotSet("order_total", 0),
+			SlotSet("pizza_type", None),
+			SlotSet("pizza_size", None),
+			SlotSet("drink", None),
+		]
+	
+class ActionAddPizzaToOrder(Action):
+
+	def name(self) -> Text:
+		return "action_add_pizza_to_order"
+	
+	def run(self, dispatcher: CollectingDispatcher,
+			tracker: Tracker,
+			domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+		
+		pizza_type = get_entity(tracker, "pizza_type") or tracker.get_slot("pizza_type")
+		pizza_size = get_entity(tracker, "pizza_size") or tracker.get_slot("pizza_size")
+	
+		if not pizza_type:
+			dispatcher.utter_message(response="utter_ask_pizza_type")
+			return []
+
+		if not pizza_size:
+			dispatcher.utter_message(response="utter_ask_pizza_size")
+			return [SlotSet("pizza_type", pizza_type)]
+
+		order_items = tracker.get_slot("order_items") or []
+		order_total = tracker.get_slot("order_total") or 0
+
+		pizza_size = pizza_size.lower()
+
+		if pizza_size in ["l","lg"]:
+			pizza_size = "large"
+		if pizza_size in ["m","md","med"]:
+			pizza_size = "medium"
+		if pizza_size in ["s","sm"]:
+			pizza_size = "small"
+
+		price = PIZZA_PRICES.get(pizza_size.lower(), 0)
+		promo = PIZZA_PROMOS.get(pizza_type.lower(), 0)
+
+		item = {
+			"type": "pizza",
+			"name": pizza_type,
+			"size": pizza_size,
+			"price": price + promo,
+			"promo": promo
 		}
 
-		price = base_prices.get(pizza_size, 0)
+		order_items.append(item)
+		order_total += price + promo
 
-		if pizza_type and pizza_type.lower() == "margherita":
-			price -= 2
+		dispatcher.utter_message(
+			text=f"I've added a {pizza_size} {pizza_type} pizza to your order"
+		)
 
-		pickup_id = self.generate_code(4)
+		dispatcher.utter_message(response="utter_ask_what_else")
+
+		return [
+			SlotSet("order_started", True),
+			SlotSet("order_items", order_items),
+			SlotSet("order_total", order_total),
+			SlotSet("pizza_type", None),
+			SlotSet("pizza_size", None),
+		]
+	
+class ActionAddDrinkToOrder(Action):
+
+	def name(self) -> Text:
+		return "action_add_drink_to_order"
+	
+	def run(self, dispatcher: CollectingDispatcher,
+			tracker: Tracker,
+			domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+	
+		drink = get_entity(tracker, "drink") or tracker.get_slot("drink")
+
+		if not drink:
+			dispatcher.utter_message(response="utter_ask_drink_type")
+			return []
+
+		order_items = tracker.get_slot("order_items") or []
+		order_total = tracker.get_slot("order_total") or 0
+
+		item = {
+			"type": "drink",
+			"name": drink,
+			"price": DRINK_PRICE,
+		}
+
+		order_items.append(item)
+		order_total += DRINK_PRICE
+
+		dispatcher.utter_message(
+			text=f"I've added a {drink} to your order."
+		)
+
+		dispatcher.utter_message(response="utter_ask_what_else")
+
+		return [
+			SlotSet("order_started", True),
+			SlotSet("order_items", order_items),
+			SlotSet("order_total", order_total),
+			SlotSet("drink", None),
+		]
+
+class ActionConfirmOrder(Action):
+
+	def name(self) -> Text:
+		return "action_confirm_order"
+	
+	def run(self, dispatcher: CollectingDispatcher,
+			tracker: Tracker,
+			domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+	
+		summary = summarize_order(tracker)
+
+		dispatcher.utter_message(summary)
+
+		return []
+
+class ActionSubmitOrder(Action):
+
+	def name(self) -> Text:
+		return "action_submit_order"
+
+	def run(self, dispatcher: CollectingDispatcher,
+			tracker: Tracker,
+			domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+		code = "PIZZA-" + "".join(
+			random.choices(string.ascii_uppercase + string.digits, k=4)
+		)
 
 		dispatcher.utter_message(
 			text=(
-				f"Your {pizza_size} {pizza_type} pizza is confirmed. "
-				f"The total is {price} euro. "
-				f"Your pickup identifier is {pickup_id}."
+				f"Here's your pickup code: {code}\n"
 			)
 		)
 
 		return []
 
-	def generate_code(self, k=4):
-		return f"PIZZA-{random.choices(string.ascii_uppercase + string.digits, k)}"
-    
-class ActionConfirmDrinksOrder(Action):
-
-    def name(self) -> Text:
-        return "action_confirm_drinks"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        dispatcher.utter_message(text="Hello World!")
-
-        return []

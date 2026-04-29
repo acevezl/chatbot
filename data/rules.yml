@@ -2,6 +2,13 @@ version: "3.1"
 
 rules:
 
+# Greeting / Goodbye Rules
+- rule: Greet customers on conversation start
+  # RASA CLI Behavior: This does not work on the CLI - This is normal (checked with prof Juan & Documentation)
+  conversation_start: true
+  steps:
+    - action: utter_greet
+
 - rule: Greet customers when they greet you
   steps:
   - intent: greet
@@ -12,49 +19,56 @@ rules:
   - intent: goodbye
   - action: utter_goodbye
 
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
 
-- rule: Activate Pizza Type Form
+# Order Pizza Rules
+- rule: Start order
   steps:
-    - intent: order_pizza
-    - action: pizza_type_form
-    - active_loop: pizza_type_form
+    - intent: start_order
+    - action: action_start_restart_order
+    - action: utter_start_order
 
-- rule: Submit Pizza Type Form
-  condition:
-    - active_loop: pizza_type_form
+- rule: Add pizza item
   steps:
-    - action: pizza_type_form
-    - active_loop: null
-    - slot_was_set:
-      - requested_slot: null
-    - action: action_confirm_pizza_type_order
+    - intent: add_pizza_to_order
+    - action: action_add_pizza_to_order
 
-- rule: Activate Drink Form
+- rule: Add drink item
   steps:
-    - intent: order_drinks
-    - action: drinks_form
-    - active_loop: drinks_form
+    - intent: add_drink_to_order
+    - action: action_add_drink_to_order
 
-- rule: Submit Drink Form
-  condition:
-    - active_loop: drinks_form
+- rule: User asks for order summary
   steps:
-    - action: drinks_form
-    - active_loop: null
-    - slot_was_set:
-      - requested_slot: null
-    - action: action_confirm_drinks
+    - intent: summarize_order
+    - action: action_confirm_order
+    - action: utter_ask_what_else
 
-- rule: Answer opening hours
+- rule: User is done ordering
   steps:
-    - intent: ask_opening_hours
-    - action: utter_opening_hours
+    - intent: done_ordering
+    - action: action_confirm_order
+    - action: utter_confirm
 
-- rule: Respond to unknown input
+- rule: User confirms final order
+  steps:
+    - intent: confirm_order
+    - action: action_submit_order
+    # utter pickup code is on action.py - action_submit_order
+    - action: utter_goodbye
+
+- rule: User rejects final order
+  steps:
+    - intent: deny_order
+    - action: action_start_restart_order
+    - action: utter_restart_order
+
+- rule: Continue order after user provides missing info
+  steps:
+    - intent: inform
+    - action: action_add_pizza_to_order
+
+# Respuesta for defecto
+- rule: Fallback
   steps:
     - intent: nlu_fallback
     - action: utter_default

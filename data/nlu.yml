@@ -10,18 +10,391 @@
 version: "3.1"
 
 nlu:
-- intent: affirm
+
+# Greet / Goodbye Intents
+- intent: greet
   examples: |
+    - hello
+    - hi
+    - hey
+    - hey there
+    - hello there
+    - hi there
+    - hey buddy
+    - hey friend
+    - good morning
+    - good afternoon
+    - good evening
+    - morning
+    - afternoon
+    - evening
+    - what's up
+    - whats up
+    - sup
+    - yo
+    - howdy
+    - hiya
+    - hey you
+    - hello my friend
+    - hi again
+    - hey again
+    - hello again
+    - nice to see you
+    - good to see you
+    - long time no see
+    - hi how are you
+    - hello how are you
+    - hey how are you
+    - how are you doing
+    - how's it going
+    - how is it going
+    - how are things
+    - how have you been
+    - hope you're doing well
+    - hope you are doing well
+    - greetings
+    - warm greetings
+    - a warm hello
+    - hello hello
+    - hey hey
+    - hi hi
+    - hello there friend
+    - hey there friend
+    - hi there friend
+    - good day
+    - top of the morning
+    - pleasure to meet you
+    - wassup
+
+- intent: goodbye
+  examples: |
+    - goodbye
+    - bye
+    - bye bye
+    - see you
+    - see you later
+    - see you soon
+    - talk to you later
+    - catch you later
+    - see ya
+    - later
+    - peace
+    - I'm out
+    - I have to go
+    - gotta go
+    - got to go
+    - I need to leave
+    - I should get going
+    - I'll talk to you later
+    - talk soon
+    - until next time
+    - have a good day
+    - have a nice day
+    - have a great day
+    - have a good one
+    - take care
+    - take it easy
+    - stay safe
+    - be safe
+    - have a good evening
+    - have a good night
+    - good night
+    - good night and take care
+    - goodbye for now
+    - farewell
+    - farewell for now
+    - it was nice talking to you
+    - nice talking to you
+    - it was great chatting with you
+    - thanks, bye
+    - thanks, goodbye
+    - alright, bye
+    - ok bye
+    - okay bye
+    - bye for now
+    - see you around
+    - see you next time
+    - I'll catch you later
+    - I'll see you later
+    - until we meet again
+    - signing off
+
+# Intents for placing a pizza / drink order
+- intent: start_order
+  examples: |
+    - I want to order
+    - I'd like to place an order
+    - Can I order something?
+    - Can I place an order?
+    - I'd like to order food
+    - Let me order
+    - I want to place an order
+    - Can I make an order?
+    - I'd like to make an order
+    - I want to get something
+    - Can I get something?
+    - I'd like to buy something
+    - I want to order food
+    - Let me place an order
+    - I'd like to order now
+    - Can I order now?
+    - I'm ready to order
+    - I'd like to start an order
+    - Let's place an order
+    - Can I start an order?
+
+- intent: add_pizza_to_order
+  examples: |
+    - I want a pizza
+    - I want a [margherita](pizza_type) pizza
+    - I'd like a [marinara](pizza_type) pizza
+    - Give me a [hawaiian](pizza_type) pizza
+    - Can I get a [veggie](pizza_type) pizza?
+    - I'll have a [funghi](pizza_type) pizza
+    - I want a [large](pizza_size) pizza
+    - I'd like a [medium](pizza_size) pizza
+    - Give me a [small](pizza_size) pizza
+    - Can I get a [large](pizza_size) [margherita](pizza_type)?
+    - I'll have a [medium](pizza_size) [marinara](pizza_type)
+    - I want a [large](pizza_size) [hawaiian](pizza_type) pizza
+    - I'd like a [small](pizza_size) [veggie](pizza_type) pizza
+    - Give me a [medium](pizza_size) [funghi](pizza_type) pizza
+    - Can I get a [large](pizza_size) [marinara](pizza_type) pizza?
+    - I'll have a [small](pizza_size) [margherita](pizza_type)
+    - Add a pizza
+    - Add a [margherita](pizza_type) pizza
+    - Add a [large](pizza_size) pizza
+    - Add a [medium](pizza_size) [hawaiian](pizza_type)
+    - Add a [small](pizza_size) [veggie](pizza_type) pizza
+    - Put a pizza on my order
+    - Put a [margherita](pizza_type) on my order
+    - Put a [large](pizza_size) pizza on my order
+    - Put a [marinara](pizza_type) pizza on my order
+    - Add another pizza
+    - Add another [margherita](pizza_type)
+    - Add another [large](pizza_size) pizza
+    - I want another pizza
+    - I'd like another [margherita](pizza_type)
+    - Give me another [hawaiian](pizza_type) pizza
+    - Can I add a pizza?
+    - Can I add a [margherita](pizza_type)?
+    - Can I add a [large](pizza_size) pizza?
+    - Let me get a pizza
+    - Let me get a [margherita](pizza_type) pizza
+    - Let me get a [large](pizza_size) pizza
+    - I'll take a pizza
+    - I'll take a [margherita](pizza_type)
+    - I'll take a [large](pizza_size) pizza
+    - I feel like having a pizza
+    - I feel like a [margherita](pizza_type)
+    - I'm craving a pizza
+    - I'm craving a [large](pizza_size) pizza
+    - Get me a pizza
+    - Get me a [margherita](pizza_type) pizza
+    
+
+- intent: add_drink_to_order
+  examples: |
+    - I want a drink
+    - I'd like a drink
+    - Give me a drink
+    - Can I get a drink?
+    - I'll have a drink
+    - I want a [coke](drink)
+    - I'd like a [fanta](drink)
+    - Give me a [pibb](drink)
+    - Can I get a [coke](drink)?
+    - I'll have a [fanta](drink)
+    - I want a [coke](drink) please
+    - I'd like a [fanta](drink) please
+    - Give me a [coke](drink) please
+    - Can I get a [pibb](drink)?
+    - I'll take a [coke](drink)
+    - I'll take a [fanta](drink)
+    - I'll take a [pibb](drink)
+    - Add a drink
+    - Add a [coke](drink)
+    - Add a [fanta](drink)
+    - Add a [pibb](drink)
+    - Add a [coke](drink) to my order
+    - Add a [fanta](drink) to my order
+    - Add a drink to my order
+    - Put a drink on my order
+    - Put a [coke](drink) on my order
+    - Put a [fanta](drink) on my order
+    - Put a [pibb](drink) on my order
+    - Add another drink
+    - Add another [coke](drink)
+    - Add another [fanta](drink)
+    - Add another [pibb](drink)
+    - I want another drink
+    - I'd like another [coke](drink)
+    - Give me another [fanta](drink)
+    - Can I add a drink?
+    - Can I add a [coke](drink)?
+    - Can I add a [fanta](drink)?
+    - Let me get a drink
+    - Let me get a [coke](drink)
+    - Let me get a [fanta](drink)
+    - Let me get a [pibb](drink)
+    - I feel like a [coke](drink)
+    - I feel like a [fanta](drink)
+    - I'm craving a [coke](drink)
+    - I'm craving a drink
+    - Get me a drink
+    - Get me a [coke](drink)
+    - Get me a [fanta](drink)
+    - Get me a [pibb](drink)
+    - a [coke](drink)
+    - a [fanta](drink)
+    - a [pibb](drink)
+    - [coke](drink)
+    - [fanta](drink)
+    - [pibb](drink)
+
+
+- intent: inform
+  examples: |
+    - a [margherita](pizza_type) pizza
+    - a [medium](pizza_size) [hawaiian](pizza_type) pizza
+    - [small](pizza_size) pizza
+    - I want a [medium](pizza_size) pizza
+    - I want a [large](pizza_size) [margherita](pizza_type)
+    - [medium](pizza_size)
+    - add a [large](pizza_size) pizza
+    - I also want a [medium](pizza_size)
+    - [s](pizza_size)
+    - [margherita](pizza_type)
+    - [marinara](pizza_type)
+    - [veggie](pizza_type)
+    - [Marinara](pizza_type)
+    - [Margherita](pizza_type)
+    - [Veggie](pizza_type)
+    - [Funghi](pizza_type)
+    - [hawaiian](pizza_type)
+    - add a [veggie](pizza_type)
+    - add a [hawaiian](pizza_type) pizza
+    - I want a [large](pizza_size) pizza
+    - [funghi](pizza_type)
+    - [Funghi](pizza_type)
+    - [large](pizza_size) [margherita](pizza_type)
+    - [large](pizza_size)
+    - [medium](pizza_size)
+    - [small](pizza_size)
+    - [medium](pizza_size) [hawaiian](pizza_type)
+    - add a [small](pizza_size) [veggie](pizza_type)
+    - I also want a [large](pizza_size) [funghi](pizza_type)
+    - [coke](drink)
+    - [fanta](drink)
+    - a [coke](drink)
+    - [pibb](drink)
+    - a [pibb](drink)
+    - [Pibb](drink)
+    - [coke](drink) please
+    - [funghi](pizza_type) please
+    - add a [coke](drink)
+    - I want a [pibb](drink)
+    - I want a [fanta](drink)
+    - [large](pizza_size)
+    - [medium](pizza_size)
+    - [small](pizza_size)
+    - a [large]
+    - a [medium]
+    - a [small]
+    - [l](pizza_size)
+    - [m](pizza_size)
+    - [s](pizza_size)
+    - [lg](pizza_size)
+    - [md](pizza_size)
+    - [sm](pizza_size)
+    - [L](pizza_size)
+    - [M](pizza_size)
+    - [SM](pizza_size)
+    - make it [large](pizza_size)
+    - make it [medium](pizza_size)
+    - make it [small](pizza_size)
+    - [veggie](pizza_type) pizza
+    - [margherita](pizza_type) pizza
+    - [marinara](pizza_type) pizza
+
+- intent: done_ordering
+  # Negative answers to question: Alright. What else? (i.e., `utter_ask_what_else`)
+  examples: |
+    - Nothing else
+    - Nothing
+    - nothing else
+    - nothing
+    - nada
+    - All set
+    - all set
+    - All good
+    - all good
+    - all set for now
+    - no
+    - nope
+    - nah
+    - not really
+    - no way
+    - absolutely not
+    - definitely not
+    - I don't think so
+    - I dont think so
+    - no thanks
+    - no thank you
+    - no, thank you
+    - not now
+    - I'm ready to pay
+    - I'm done
+    - I'm done ordering
+    - That's all
+    - Ready to pay
+    - Finish
+    - Finished
+    - The check please
+    - check please
+    - check my order
+
+- intent: summarize_order
+  examples: | 
+    - summarize my order
+    - tell me my order
+    - my order so far
+    - what's my order so far?
+    - what have I ordered?
+    - tab
+    - what's my tab? 
+    - tell me my tab
+    - my tab
+
+- intent: confirm_order
+  # Positive answers for question: Does this sound good? (i.e., `utter_confirm`)
+  examples: |
+    - yes good
+    - yes, good
+    - good
+    - it does
+    - yes that's correct
+    - yes, that's correct
+    - yes that's right
+    - yes, that's right
+    - yes, that sounds right
+    - that sounds right
     - yes
     - yeah
     - yep
     - yup
+    - ya
+    - ya dawg
     - of course
     - sure
     - sure thing
     - absolutely
     - definitely
     - for sure
+    - fo sho
+    - fo sho'
+    - fo shizzle
+    - fo shizzle ma nizzle
     - sounds good
     - that sounds good
     - that works
@@ -30,92 +403,115 @@ nlu:
     - okay
     - alright
     - all right
+    - aight
+    - a'ight
     - fine
+    - foine
     - great
     - awesome
     - perfect
+    - perfe
     - exactly
     - correct
     - right
     - that's right
     - you got it
-    - go ahead
-    - please do
     - yes please
     - yeah sure
     - why not
-    - I agree
-    - I do
-    - I think so
-    - I guess so
     - makes sense
     - that makes sense
     - sounds right
     - indeed
     - certainly
-    - by all means
     - totally
     - 100 percent
     - 100%
+    - one hundo
     - ok sure
     - yes that's fine
     - that's fine
-    - no problem
-    - not a problem
 
+- intent: deny_order
+  # Negative answers for question: Does this sound good? (i.e., `utter_confirm`)
+  examples: |
+    - no
+    - nope
+    - absolutely not
+    - not at all
+    - that's incorrect
+    - that is incorrect
+    - wrong
+    - that's wrong
+    - not correct
+    - that doesn't work
+    - that does not work
+    - this doesn't work
+    - this does not work
+    - that won't work
+    - that will not work
+    - I don't like that
+    - I dont like that
+    - I do not like that
+    - don't do that
+    - do not do that
+    - cancel
+    - never mind
+    - forget it
+
+# Intents for asking for information
 - intent: ask_drink_types
   examples: |
-    - what drinks do you have
-    - what drinks do you offer
-    - what drinks are available
+    - what drink do you have
+    - what drink do you offer
+    - what drink are available
     - what beverages do you have
     - what beverages do you offer
     - what beverages are available
     - what can I drink
-    - what drinks can I get
-    - what drinks can I order
-    - what drinks are on the menu
+    - what drink can I get
+    - what drink can I order
+    - what drink are on the menu
     - what beverages are on the menu
     - what drink options do you have
     - what beverage options do you have
     - what drink options are available
     - what beverages can I choose from
-    - what drinks can I choose from
+    - what drink can I choose from
     - what are my drink options
     - what are my beverage options
-    - what drinks do you sell
+    - what drink do you sell
     - what beverages do you sell
-    - what kind of drinks do you have
+    - what kind of drink do you have
     - what kind of beverages do you have
-    - what types of drinks do you have
+    - what types of drink do you have
     - what types of beverages do you have
-    - tell me your drinks
+    - tell me your drink
     - tell me your beverage options
-    - tell me what drinks you have
+    - tell me what drink you have
     - tell me what beverages you have
-    - list the drinks
-    - list your drinks
+    - list the drink
+    - list your drink
     - list the beverages
-    - show me the drinks
-    - show me your drinks
+    - show me the drink
+    - show me your drink
     - show me the beverage menu
-    - can I see the drinks
+    - can I see the drink
     - can I see the beverage menu
-    - what drinks are there
+    - what drink are there
     - what beverages are there
-    - what drinks are available right now
+    - what drink are available right now
     - what beverages are available right now
-    - what drinks do you currently have
+    - what drink do you currently have
     - what beverages do you currently have
     - what can I choose to drink
-    - what are the available drinks
+    - what are the available drink
     - what are the available beverages
-    - what drinks do you serve
+    - what drink do you serve
     - what beverages do you serve
-    - what drinks can I pick from
+    - what drink can I pick from
     - what beverages can I pick from
-    - what drinks are in stock
-
+    - what drink are in stock
 
 - intent: ask_opening_hours
   examples: |
@@ -222,9 +618,18 @@ nlu:
     - what are the size choices
     - what sizes can I get
     - what pizza sizes do you offer
+    - what price are the pizzas
+    - price
+    - what is the cost of the pizzas
+    - how much
+    - how much are pizzas
+    - how much are the pizzas
+    - cost
 
 - intent: ask_pizza_types
   examples: |
+    - what do you have?
+    - show me the menu
     - what types of pizza do you have
     - what pizzas do you offer
     - what kinds of pizza are available
@@ -276,196 +681,56 @@ nlu:
     - what pizza styles do you offer
     - what are your pizza selections
 
+- intent: ask_promotions
+  examples: |
+    - promos?
+    - any promos rn?
+    - discounts
+    - sale
+    - free pizza?
+    - deals?
+    - pormotions
+    - cheap pizza
+    - cheapest pizza
+    - What promotions do you have?
+    - Do you have any promotions?
+    - Any promos right now?
+    - What deals are available?
+    - Do you have any deals?
+    - Are there any discounts?
+    - What discounts do you offer?
+    - Any special offers today?
+    - What offers do you have?
+    - Are there any specials?
+    - Do you have any specials today?
+    - What's on sale?
+    - Any pizza deals?
+    - Any combo deals?
+    - Do you have combo offers?
+    - Are there any meal deals?
+    - Any discounts on pizzas?
+    - Any discounts on drinks?
+    - What promotions are running?
+    - Are there any current promotions?
+    - Do you have any limited-time offers?
+    - What are your best deals?
+    - Any cheap combos?
+    - Any bundle deals?
+    - Do you have any offers for today?
+    - What promos are available today?
+    - Any offers on large pizzas?
+    - Any deals if I order more than one pizza?
+    - Do you have any buy-one-get-one deals?
+    - Any family deals?
+
+
+# These ones were part of the initial template, leaving here for now.
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-
-- intent: deny
-  examples: |
-    - no
-    - nope
-    - nah
-    - not really
-    - no way
-    - absolutely not
-    - definitely not
-    - I don't think so
-    - I dont think so
-    - I don't want that
-    - I dont want that
-    - I do not want that
-    - I don't want to
-    - I dont want to
-    - I do not want to
-    - no thanks
-    - no thank you
-    - not now
-    - maybe not
-    - I guess not
-    - I would rather not
-    - I'd rather not
-    - I would prefer not to
-    - I prefer not to
-    - that's not right
-    - that is not right
-    - that's incorrect
-    - that is incorrect
-    - wrong
-    - that's wrong
-    - not correct
-    - that doesn't work
-    - that does not work
-    - this doesn't work
-    - this does not work
-    - that won't work
-    - that will not work
-    - not interested
-    - I'm not interested
-    - I am not interested
-    - I don't like that
-    - I dont like that
-    - I do not like that
-    - stop
-    - please stop
-    - don't do that
-    - do not do that
-    - cancel
-    - never mind
-    - forget it
-
-- intent: goodbye
-  examples: |
-    - goodbye
-    - bye
-    - bye bye
-    - see you
-    - see you later
-    - see you soon
-    - talk to you later
-    - catch you later
-    - see ya
-    - later
-    - peace
-    - I'm out
-    - I have to go
-    - gotta go
-    - got to go
-    - I need to leave
-    - I should get going
-    - I'll talk to you later
-    - talk soon
-    - until next time
-    - have a good day
-    - have a nice day
-    - have a great day
-    - have a good one
-    - take care
-    - take it easy
-    - stay safe
-    - be safe
-    - have a good evening
-    - have a good night
-    - good night
-    - good night and take care
-    - goodbye for now
-    - farewell
-    - farewell for now
-    - it was nice talking to you
-    - nice talking to you
-    - it was great chatting with you
-    - thanks, bye
-    - thanks, goodbye
-    - alright, bye
-    - ok bye
-    - okay bye
-    - bye for now
-    - see you around
-    - see you next time
-    - I'll catch you later
-    - I'll see you later
-    - until we meet again
-    - signing off
-
-- intent: greet
-  examples: |
-    - hello
-    - hi
-    - hey
-    - hey there
-    - hello there
-    - hi there
-    - hey buddy
-    - hey friend
-    - good morning
-    - good afternoon
-    - good evening
-    - morning
-    - afternoon
-    - evening
-    - what's up
-    - whats up
-    - sup
-    - yo
-    - howdy
-    - hiya
-    - hey you
-    - hello my friend
-    - hi again
-    - hey again
-    - hello again
-    - nice to see you
-    - good to see you
-    - long time no see
-    - hi how are you
-    - hello how are you
-    - hey how are you
-    - how are you doing
-    - how's it going
-    - how is it going
-    - how are things
-    - how have you been
-    - hope you're doing well
-    - hope you are doing well
-    - greetings
-    - warm greetings
-    - a warm hello
-    - hello hello
-    - hey hey
-    - hi hi
-    - hello there friend
-    - hey there friend
-    - hi there friend
-    - good day
-    - top of the morning
-    - pleasure to meet you
-    - wassup
-
-- intent: inform
-  examples: |
-    - I'd like a [large](pizza_size) pizza
-    - I'd like a [margherita](pizza_type) pizza
-    - I'd like a [large](pizza_size) [marinara](pizza_type) pizza
-    - I'd like to order a [large](pizza_size) pizza
-    - I'd like to order a [margherita](pizza_type) pizza
-    - I'd like to order a [large](pizza_size) [marinara](pizza_type) pizza
-    - I want a [large](pizza_size) pizza
-    - I want a [margherita](pizza_type) pizza
-    - I want a [large](pizza_size) [marinara](pizza_type) pizza
-    - Order a [large](pizza_size) pizza
-    - Order a [margherita](pizza_type) pizza
-    - Order a [large](pizza_size) [marinara](pizza_type) pizza
-    - Make me a [large](pizza_size) pizza
-    - Make me a [margherita](pizza_type) pizza
-    - Make me a [large](pizza_size) [marinara](pizza_type) pizza
-    - [large](pizza_size)
-    - [large](pizza_size) pizza
-    - [small](pizza_size) [veggie](pizza_type)
-    - [medium](pizza_size) [hawaiian](pizza_type) pizza
-    - [s](pizza_size)
-    - [s](pizza_size) pizza
 
 - intent: mood_great
   examples: |
@@ -501,117 +766,29 @@ nlu:
     - so saad
     - so sad
 
-- intent: order_drinks
-  examples: |
-    - I want a drink
-    - I want to order a drink
-    - I'd like a drink
-    - can I get a drink
-    - I need a drink
-    - give me a drink
-    - can I order a drink
-    - I want something to drink
-    - I'd like something to drink
-    - can I get something to drink
-    - I want a soda
-    - I want a coke
-    - I want a pepsi
-    - I want a water
-    - I want a bottle of water
-    - I want a sparkling water
-    - I want a juice
-    - I want an orange juice
-    - I want an apple juice
-    - I want a soft drink
-    - I'd like a soda
-    - I'd like a coke
-    - I'd like a pepsi
-    - I'd like a water
-    - I'd like a juice
-    - can I get a soda
-    - can I get a coke
-    - can I get a water
-    - can I get a juice
-    - get me a drink
-    - get me a soda
-    - order me a drink
-    - order me a soda
-    - I want to add a drink
-    - I'd like to add a drink
-    - can I add a drink to my order
-    - add a drink
-    - add a soda
-    - add a coke
-    - add a water
-    - I want drinks
-    - I'd like drinks
-    - can I order drinks
-    - I want a beverage
-    - I'd like a beverage
-    - can I get a beverage
-    - I want a cold drink
-    - I'd like a cold drink
-    - can I get a cold drink
-    - let me order a drink
-
-- intent: order_pizza
-  examples: |
-    - I want to order a pizza
-    - I'd like to order a pizza
-    - can I order a pizza
-    - I want pizza
-    - I need a pizza
-    - let me order a pizza
-    - I'd like a pizza
-    - can you get me a pizza
-    - I want to get a pizza
-    - I feel like ordering pizza
-    - I want to buy a pizza
-    - I'd like to place a pizza order
-    - I want to place an order for pizza
-    - can I place a pizza order
-    - I want to order food
-    - I'd like to order food
-    - can I order some food
-    - I want to order something to eat
-    - I need something to eat
-    - I'm hungry, I want pizza
-    - I'm hungry, can I order pizza
-    - get me a pizza
-    - order me a pizza
-    - can you order a pizza for me
-    - I want to order delivery
-    - I want pizza delivery
-    - I want to order a large pizza
-    - I want to order a pepperoni pizza
-    - I want to order a cheese pizza
-    - I want to order a pizza with toppings
-    - I want to order a pizza right now
-    - I'd like to order a pizza for delivery
-    - I'd like to order a pizza for pickup
-    - can I order a pizza for delivery
-    - can I order a pizza for pickup
-    - I want to place an order
-    - I'd like to place an order
-    - can I make an order
-    - I want to order dinner
-    - I'd like to order dinner
-    - can I order dinner
-    - I want to get dinner
-    - I need to order dinner
-    - I want to order takeout
-    - I'd like to order takeout
-    - can I order takeout
-    - I want to order something
-    - I'd like to order something
-    - I want to start an order
-    - let's order pizza
 
 - lookup: pizza_size
   examples: |
     - large
     - medium
     - small
+    - Large
+    - Medium
+    - Small
+    - l
+    - m
+    - s
+    - L
+    - M
+    - S
+    - lg
+    - LG
+    - Md
+    - MD
+    - Med
+    - med
+    - sm
+    - SM
 
 - lookup: pizza_type
   examples: |
@@ -619,4 +796,59 @@ nlu:
     - marinara
     - hawaiian
     - veggie
+    - funghi
+
+- lookup: drink
+  examples: |
+    - coke
+    - Coke
+    - Coca-cola
+    - Coca
+    - Cocacola
+    - Fanta
+    - fanta
+    - Pibb
+    - pibb
+
+- synonym: funghi
+  examples: |
     - fungi
+    - Funghi
+    - Fungi
+    - fungis
+    - funguys
+    - fun guys
+    - Mushroom
+    - mushroom
+    - Mushrooms
+    - mushrooms
+    - Mush
+    - mush
+    
+- synonym: margherita
+  examples: |
+    - margarita
+    - Margarita
+    - marguerita
+    - Marguerita
+    - margerita
+    - Margerita
+    - Marge
+    - marge
+
+- synonym: hawaiian
+  examples: |
+    - canadian
+    - Canadian
+    - aloha
+
+- synonym: pibb
+  examples: |
+    - Mr. Pibb
+    - mr. pibb
+    - Dr. Pepper
+    - dr. Pepper
+    - mr pibb
+    - Mr Pibb
+    - dr Pepper
+    - dr pepper
