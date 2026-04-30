@@ -146,6 +146,7 @@ nlu:
 - intent: add_pizza_to_order
   examples: |
     - I want a pizza
+    - I want pizza
     - I want a [margherita](pizza_type) pizza
     - I'd like a [marinara](pizza_type) pizza
     - Give me a [hawaiian](pizza_type) pizza
@@ -191,6 +192,9 @@ nlu:
     - I'm craving a [large](pizza_size) pizza
     - Get me a pizza
     - Get me a [margherita](pizza_type) pizza
+    - A [hawaiian](pizza_type)
+    - a [large](pizza_size) [marge](pizza_type)
+    - An [aloha](pizza_type)
     
 
 - intent: add_drink_to_order
@@ -833,7 +837,7 @@ nlu:
     - Marguerita
     - margerita
     - Margerita
-    - Marge
+    - Mar
     - marge
 
 - synonym: hawaiian

@@ -132,7 +132,7 @@ responses:
     - text: "It seems you haven't ordered anything. What can I get you?"
 
   utter_confirm:
-    - text: "Does this sound good?"
+    - text: "Should I place this order?"
 
   utter_restart_order: 
     - text: "Alright. Let's start over, what can I get you?"
@@ -151,7 +151,7 @@ responses:
     - text: "All margherita pizzas of all sizes are 2 € off!"
 
   utter_opening_hours:
-    - text: "We are open-a every day-e from 13:00 to 22:00"
+    - text: "We are open every day from 13:00 to 22:00"
 
 
   # Default
