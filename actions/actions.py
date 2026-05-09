@@ -142,8 +142,8 @@ class ActionAddPizzaToOrder(Action):
 			"type": "pizza",
 			"name": pizza_type,
 			"size": pizza_size,
-			"price": price + promo,
-			"promo": promo
+			"price": price,
+			"promo": promo,
 		}
 
 		order_items.append(item)
