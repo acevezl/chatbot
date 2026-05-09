@@ -238,4 +238,3 @@ class ActionSubmitOrder(Action):
 		)
 
 		return []
-

@@ -252,11 +252,11 @@ An active form can be thought as a loop that will keep asking for information th
 RASA forms can be configured to detect slot values from entities.
 
 
-## Activate .venve (With Python 3.10.20)
-source /Users/arnaut/chatbot/rasa-env/bin/activate
+## Activate .venv (With Python 3.10.20)
+source ~/rasa-chatbot/rasa-env/bin/activate
 
 ## Init RASA
-cd /Users/arnaut/chatbot
+cd ~/rasa-chatbot
 source rasa-env/bin/activate
 export SQLALCHEMY_SILENCE_UBER_WARNING=1
 rasa init

@@ -107,10 +107,10 @@ forms:
 responses:
   # Greet / Goodbye
   utter_greet:
-  - text: "Mamma mia! Welcome to Luigi-and-Dany's pizzeria! What can I get you?"
+  - text: "Mamma mia! Welcome to Luigi-and-Dany's Pizzeria!\nI'm a Pizza Bot, how can I help you today?\nYou can place an order or ask about our pizzas, sizes, drinks, promotions, and opening hours."
 
   utter_goodbye:
-  - text: "Ciao!"
+  - text: "Ciao! Come back soon for more delicious pizza and drinks from Luigi-and-Dany's Pizzeria!"
 
   # Order
   utter_start_order:
