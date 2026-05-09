@@ -116,11 +116,14 @@ class ActionAddPizzaToOrder(Action):
 		pizza_type = get_entity(tracker, "pizza_type") or tracker.get_slot("pizza_type")
 		pizza_size = get_entity(tracker, "pizza_size") or tracker.get_slot("pizza_size")
 	
-		if not pizza_type:
+		print (f"DEBUG: pizza_type={pizza_type}, pizza_size={pizza_size}")
+		if not pizza_type and not pizza_size:
 			dispatcher.utter_message(response="utter_ask_pizza_type")
 			return []
-
-		if not pizza_size:
+		elif not pizza_type:
+			dispatcher.utter_message(response="utter_ask_pizza_type")
+			return [SlotSet("pizza_size", pizza_size)]
+		elif not pizza_size:
 			dispatcher.utter_message(response="utter_ask_pizza_size")
 			return [SlotSet("pizza_type", pizza_type)]
 

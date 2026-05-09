@@ -68,6 +68,32 @@ rules:
     - action: action_add_pizza_to_order
     # utter_what_else is on action.py - action_add_pizza_to_order only when info is complete and pizza was added
 
+# Rules to ask for information about the menu (pizza types, sizes, and drinks)
+- rule: Ask pizza types
+  steps:
+    - intent: ask_pizza_types
+    - action: utter_pizza_types
+
+- rule: Ask pizza sizes
+  steps:
+    - intent: ask_pizza_sizes
+    - action: utter_pizza_sizes
+
+- rule: Ask drink types
+  steps:
+    - intent: ask_drink_types
+    - action: utter_drink_types
+
+- rule: Ask promotions
+  steps:
+    - intent: ask_promotions
+    - action: utter_promotions
+
+- rule: Ask opening hours
+  steps:
+    - intent: ask_opening_hours
+    - action: utter_opening_hours
+
 # Respuesta for defecto
 - rule: Fallback
   steps:

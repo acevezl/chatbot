@@ -157,60 +157,46 @@ nlu:
     - Order something
     - Order food
     - I want to order something
+    - Me want food
+    - Me want pizza
+
+- intent: restart_order
+  examples: |
+    - I want to start over
+    - Let's start over
+    - Can we start over?
+    - I want to restart my order
+    - Restart my order
+    - Start over
+    - Let's restart the order
+    - Can I restart the order?
+    - I want to restart the order
+    - I want to start a new order
+    - Start a new order
+    - Let's start a new order
+    - Can we start a new order?
+    - I want to cancel this order and start a new one
 
 - intent: add_pizza_to_order
   examples: |
-    - I want a pizza
-    - I want pizza
-    - I want a [margherita](pizza_type) pizza
-    - I'd like a [marinara](pizza_type) pizza
-    - Give me a [hawaiian](pizza_type) pizza
-    - Can I get a [veggie](pizza_type) pizza?
-    - I'll have a [funghi](pizza_type) pizza
-    - I want a [large](pizza_size) pizza
-    - I'd like a [medium](pizza_size) pizza
-    - Give me a [small](pizza_size) pizza
-    - Can I get a [large](pizza_size) [margherita](pizza_type)?
-    - I'll have a [medium](pizza_size) [marinara](pizza_type)
-    - I want a [large](pizza_size) [hawaiian](pizza_type) pizza
-    - I'd like a [small](pizza_size) [veggie](pizza_type) pizza
-    - Give me a [medium](pizza_size) [funghi](pizza_type) pizza
-    - Can I get a [large](pizza_size) [marinara](pizza_type) pizza?
-    - I'll have a [small](pizza_size) [margherita](pizza_type)
-    - Add a pizza
-    - Add a [margherita](pizza_type) pizza
-    - Add a [large](pizza_size) pizza
-    - Add a [medium](pizza_size) [hawaiian](pizza_type)
-    - Add a [small](pizza_size) [veggie](pizza_type) pizza
-    - Put a pizza on my order
-    - Put a [margherita](pizza_type) on my order
-    - Put a [large](pizza_size) pizza on my order
-    - Put a [marinara](pizza_type) pizza on my order
-    - Add another pizza
-    - Add another [margherita](pizza_type)
-    - Add another [large](pizza_size) pizza
-    - I want another pizza
-    - I'd like another [margherita](pizza_type)
-    - Give me another [hawaiian](pizza_type) pizza
-    - Can I add a pizza?
-    - Can I add a [margherita](pizza_type)?
-    - Can I add a [large](pizza_size) pizza?
-    - Let me get a pizza
-    - Let me get a [margherita](pizza_type) pizza
-    - Let me get a [large](pizza_size) pizza
-    - I'll take a pizza
-    - I'll take a [margherita](pizza_type)
-    - I'll take a [large](pizza_size) pizza
-    - I feel like having a pizza
-    - I feel like a [margherita](pizza_type)
-    - I'm craving a pizza
-    - I'm craving a [large](pizza_size) pizza
-    - Get me a pizza
-    - Get me a [margherita](pizza_type) pizza
-    - A [hawaiian](pizza_type)
-    - a [large](pizza_size) [marge](pizza_type)
-    - An [aloha](pizza_type)
-    
+    - a [margherita](pizza_type) pizza
+    - a [medium](pizza_size) [hawaiian](pizza_type) pizza
+    - [small](pizza_size) pizza
+    - I want a [medium](pizza_size) pizza
+    - I want a [large](pizza_size) [margherita](pizza_type)
+    - add a [large](pizza_size) pizza
+    - add a [veggie](pizza_type)
+    - add a [hawaiian](pizza_type) pizza
+    - [large](pizza_size) [margherita](pizza_type)
+    - [medium](pizza_size) [hawaiian](pizza_type)
+    - add a [small](pizza_size) [veggie](pizza_type)
+    - I also want a [large](pizza_size) [funghi](pizza_type)
+    - [veggie](pizza_type) pizza
+    - [margherita](pizza_type) pizza
+    - [marinara](pizza_type) pizza
+    - I want a [large](pizza_size) [marge](pizza_type) pizza
+    - I want a [medium](pizza_size) [hawaiian](pizza_type) pizza
+    - I want a [small](pizza_size) [veggie](pizza_type) pizza
 
 - intent: add_drink_to_order
   examples: |
@@ -277,13 +263,7 @@ nlu:
 
 - intent: inform
   examples: |
-    - a [margherita](pizza_type) pizza
-    - a [medium](pizza_size) [hawaiian](pizza_type) pizza
-    - [small](pizza_size) pizza
-    - I want a [medium](pizza_size) pizza
-    - I want a [large](pizza_size) [margherita](pizza_type)
     - [medium](pizza_size)
-    - add a [large](pizza_size) pizza
     - I also want a [medium](pizza_size)
     - [s](pizza_size)
     - [margherita](pizza_type)
@@ -294,25 +274,15 @@ nlu:
     - [Veggie](pizza_type)
     - [Funghi](pizza_type)
     - [hawaiian](pizza_type)
-    - add a [veggie](pizza_type)
-    - add a [hawaiian](pizza_type) pizza
-    - I want a [large](pizza_size) pizza
     - [funghi](pizza_type)
     - [Funghi](pizza_type)
-    - [large](pizza_size) [margherita](pizza_type)
     - [large](pizza_size)
     - [medium](pizza_size)
     - [small](pizza_size)
-    - [medium](pizza_size) [hawaiian](pizza_type)
-    - add a [small](pizza_size) [veggie](pizza_type)
-    - I also want a [large](pizza_size) [funghi](pizza_type)
     - [funghi](pizza_type) please
-    - [large](pizza_size)
-    - [medium](pizza_size)
-    - [small](pizza_size)
-    - a [large]
-    - a [medium]
-    - a [small]
+    - a [large](pizza_size)
+    - a [medium](pizza_size)
+    - a [small](pizza_size)
     - [l](pizza_size)
     - [m](pizza_size)
     - [s](pizza_size)
@@ -325,12 +295,9 @@ nlu:
     - make it [large](pizza_size)
     - make it [medium](pizza_size)
     - make it [small](pizza_size)
-    - [veggie](pizza_type) pizza
-    - [margherita](pizza_type) pizza
-    - [marinara](pizza_type) pizza
 
 - intent: done_ordering
-  # Negative answers to question: Alright. What else? (i.e., `utter_ask_what_else`)
+  # Negative answers to question: Alright. What else can I get you? (i.e., `utter_ask_what_else`)
   examples: |
     - Nothing else
     - Nothing
@@ -342,18 +309,6 @@ nlu:
     - All good
     - all good
     - all set for now
-    - no
-    - nope
-    - nah
-    - not really
-    - no way
-    - absolutely not
-    - definitely not
-    - I don't think so
-    - I dont think so
-    - no thanks
-    - no thank you
-    - no, thank you
     - not now
     - I'm ready to pay
     - I'm done
@@ -619,57 +574,23 @@ nlu:
 
 - intent: ask_pizza_types
   examples: |
-    - what do you have?
+    - what pizzas do you make?
+    - what pizzas do you sell?
+    - what pizza types do you have?
+    - what kinds of pizza do you have?
+    - what varieties of pizza do you have?
+    - what flavors of pizza do you have?
+    - what pizza options do you have?
+    - what pizzas are on the menu?
+    - what pizzas do you offer?
+    - what pizzas are available?
+    - what can I order?
+    - menu
     - show me the menu
-    - what types of pizza do you have
-    - what pizzas do you offer
-    - what kinds of pizza are available
-    - what pizza options do you have
-    - what can I order
-    - what pizzas can I get
-    - what are your pizzas
-    - what flavors of pizza do you have
-    - what kinds of pizzas do you sell
-    - what pizza varieties do you have
-    - what's on the menu
-    - can I see the pizza menu
-    - what's your menu
-    - what do you serve
-    - what food do you have
-    - what pizzas are on your menu
-    - tell me what pizzas you have
-    - tell me your pizza options
-    - tell me the available pizzas
-    - what choices of pizza do you have
-    - what pizza choices are there
-    - what kind of pizza can I order
-    - what are my options for pizza
-    - what are the pizza options
-    - list your pizzas
-    - list the pizza types
-    - list your menu
-    - give me the menu
-    - give me the pizza menu
-    - can you show me your pizzas
-    - can you list your pizzas
-    - what pizzas are available right now
-    - what pizzas do you currently have
-    - what pizzas are in stock
-    - what can I choose from
-    - what can I pick from
-    - what are the available options
-    - what are the available pizza types
-    - what do you have available
-    - what pizzas can I choose from
-    - what are your specialties
-    - what pizzas do you recommend
-    - what's good here
-    - what should I order
-    - what pizzas are popular
-    - what pizzas do people usually get
-    - what kinds of pizza can you make
-    - what pizza styles do you offer
-    - what are your pizza selections
+    - list of pizzas
+    - what do you recommend?
+    - what do you suggest?
+    - what is good?
 
 - intent: ask_promotions
   examples: |
@@ -762,23 +683,31 @@ nlu:
     - large
     - medium
     - small
-    - Large
-    - Medium
-    - Small
+
+- synonym: large
+  examples: |
     - l
-    - m
-    - s
-    - L
-    - M
-    - S
     - lg
-    - LG
+    - L
+    - Large
+
+- synonym: medium
+  examples: |
+    - m
+    - md
+    - M
+    - Medium
     - Md
-    - MD
-    - Med
     - med
+
+- synonym: small
+  examples: |
+    - s
     - sm
-    - SM
+    - S
+    - Small
+    - Sm
+    - petite
 
 - lookup: pizza_type
   examples: |

@@ -96,27 +96,6 @@ stories:
     - action: utter_restart_order
 
 
-# Stories to ask for information about the menu (pizza types, sizes, and drinks)
-- story: Ask pizza sizes
-  steps:
-    - intent: ask_pizza_sizes
-    - action: utter_pizza_sizes
-
-- story: Ask drink types
-  steps:
-    - intent: ask_drink_types
-    - action: utter_drink_types
-
-- story: Ask promotions
-  steps:
-    - intent: ask_promotions
-    - action: utter_promotions
-
-- story: Ask opening hours
-  steps:
-    - intent: ask_opening_hours
-    - action: utter_opening_hours
-
 # Stories to show interruptions in the flow
 - story: Pizzus interruptus - Pizza types
   # Customer asks for the menu instead of asking for pizzas in the middle of the happy path
@@ -128,7 +107,6 @@ stories:
     - action: utter_start_order
     - intent: ask_pizza_types
     - action: utter_pizza_types
-    - action: utter_start_order
     - intent: add_pizza_to_order
     - action: action_add_pizza_to_order
     - intent: add_drink_to_order
@@ -143,6 +121,6 @@ stories:
 - story: ask drink types then order drink
   steps:
     - intent: ask_drink_types
-    - action: utter_ask_drink_type
+    - action: utter_drink_types
     - intent: add_drink_to_order
     - action: action_add_drink_to_order
