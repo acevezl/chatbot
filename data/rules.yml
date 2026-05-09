@@ -41,13 +41,13 @@ rules:
   steps:
     - intent: summarize_order
     - action: action_confirm_order
-    - action: utter_ask_what_else
+    # utter_confirm is on  action.py - action_confirm_order
 
 - rule: User is done ordering
   steps:
     - intent: done_ordering
     - action: action_confirm_order
-    - action: utter_confirm
+    # utter_confirm is on  action.py - action_confirm_order
 
 - rule: User confirms final order
   steps:
@@ -66,6 +66,7 @@ rules:
   steps:
     - intent: inform
     - action: action_add_pizza_to_order
+    # utter_what_else is on action.py - action_add_pizza_to_order only when info is complete and pizza was added
 
 # Respuesta for defecto
 - rule: Fallback

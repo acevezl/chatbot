@@ -118,17 +118,26 @@ nlu:
     - I'll see you later
     - until we meet again
     - signing off
+    - ciao
+    - arrivederci
+    - adios
+    - au revoir
+    - sayonara
+    - shalom
+    - namaste
+    - goodbye my friend
+    - bye my friend
 
 # Intents for placing a pizza / drink order
 - intent: start_order
   examples: |
+    - I want to place an order
     - I want to order
     - I'd like to place an order
     - Can I order something?
     - Can I place an order?
     - I'd like to order food
     - Let me order
-    - I want to place an order
     - Can I make an order?
     - I'd like to make an order
     - I want to get something
@@ -142,6 +151,12 @@ nlu:
     - I'd like to start an order
     - Let's place an order
     - Can I start an order?
+    - I want to start an order
+    - Start an order
+    - Place an order
+    - Order something
+    - Order food
+    - I want to order something
 
 - intent: add_pizza_to_order
   examples: |
@@ -199,6 +214,16 @@ nlu:
 
 - intent: add_drink_to_order
   examples: |
+    - [coke](drink)
+    - [fanta](drink)
+    - [pibb](drink)
+    - [mr. pibb](drink)
+    - [mr pibb](drink)
+    - [Mr. Pibb](drink)
+    - [Mr Pibb](drink)
+    - a [coke](drink)
+    - a [fanta](drink)
+    - a [pibb](drink)
     - I want a drink
     - I'd like a drink
     - Give me a drink
@@ -249,13 +274,6 @@ nlu:
     - Get me a [coke](drink)
     - Get me a [fanta](drink)
     - Get me a [pibb](drink)
-    - a [coke](drink)
-    - a [fanta](drink)
-    - a [pibb](drink)
-    - [coke](drink)
-    - [fanta](drink)
-    - [pibb](drink)
-
 
 - intent: inform
   examples: |
@@ -288,17 +306,7 @@ nlu:
     - [medium](pizza_size) [hawaiian](pizza_type)
     - add a [small](pizza_size) [veggie](pizza_type)
     - I also want a [large](pizza_size) [funghi](pizza_type)
-    - [coke](drink)
-    - [fanta](drink)
-    - a [coke](drink)
-    - [pibb](drink)
-    - a [pibb](drink)
-    - [Pibb](drink)
-    - [coke](drink) please
     - [funghi](pizza_type) please
-    - add a [coke](drink)
-    - I want a [pibb](drink)
-    - I want a [fanta](drink)
     - [large](pizza_size)
     - [medium](pizza_size)
     - [small](pizza_size)
@@ -357,6 +365,8 @@ nlu:
     - The check please
     - check please
     - check my order
+    - that's it
+    - that's all
 
 - intent: summarize_order
   examples: | 
@@ -369,20 +379,27 @@ nlu:
     - what's my tab? 
     - tell me my tab
     - my tab
+    - show my order
+    - what's in my order
+    - what have I put in my order?
+    - show me my order
+    - what have I added to my order?
+    - can you summarize my order?
+    - can you tell me my order?
+    - can you show me my order?
+    - what's on my order?
+    - what's on my tab?
+    - what do I have so far?
+    - what do I have in my order?
+    - what do I have in my tab?
+    - can you show me my tab?
+    - can you tell me my tab?
+    - can you summarize my tab?
+    - order summary
 
 - intent: confirm_order
-  # Positive answers for question: Does this sound good? (i.e., `utter_confirm`)
+  # Positive answers for question: Should I place this order? (i.e., `utter_confirm`)
   examples: |
-    - yes good
-    - yes, good
-    - good
-    - it does
-    - yes that's correct
-    - yes, that's correct
-    - yes that's right
-    - yes, that's right
-    - yes, that sounds right
-    - that sounds right
     - yes
     - yeah
     - yep
@@ -394,52 +411,22 @@ nlu:
     - sure thing
     - absolutely
     - definitely
-    - for sure
-    - fo sho
-    - fo sho'
-    - fo shizzle
-    - fo shizzle ma nizzle
-    - sounds good
-    - that sounds good
-    - that works
-    - works for me
     - ok
     - okay
-    - alright
-    - all right
-    - aight
-    - a'ight
-    - fine
-    - foine
-    - great
-    - awesome
-    - perfect
-    - perfe
-    - exactly
-    - correct
-    - right
-    - that's right
     - you got it
     - yes please
     - yeah sure
-    - why not
-    - makes sense
-    - that makes sense
-    - sounds right
-    - indeed
     - certainly
     - totally
-    - 100 percent
-    - 100%
-    - one hundo
     - ok sure
-    - yes that's fine
-    - that's fine
+    
+
 
 - intent: deny_order
-  # Negative answers for question: Does this sound good? (i.e., `utter_confirm`)
+  # Negative answers for question: Should I place this order? (i.e., `utter_confirm`)
   examples: |
     - no
+    - nah
     - nope
     - absolutely not
     - not at all
@@ -838,12 +825,62 @@ nlu:
     - Margerita
     - Mar
     - marge
+    - marghertia
+    - marghareta
+    - marghareetha
+    - marghareetha
+    - margharetta
+    - margerita
+    - margareta
+    - margaretta
 
 - synonym: hawaiian
   examples: |
     - canadian
     - Canadian
     - aloha
+
+- synonym: veggie
+  examples: |
+    - vegetarian
+    - Vegetarian
+    - veg
+    - Veg
+    - veggies
+    - Veggies
+
+- synonym: marinara
+  examples: |
+    - marinara
+    - Marinara
+    - marina
+    - Marina
+    - marinera
+    - Marinera
+    - marinaro
+    - Marinaro
+    - marinero
+    - Marinero
+
+- synonym: coke
+  examples: |
+    - Coca-cola
+    - Coca
+    - Cocacola
+    - coke
+    - Coke
+    - cola
+
+- synonym: fanta
+  examples: |
+    - Fanta
+    - fanta
+    - Fant
+    - fant
+    - fantaa
+    - Fantaa
+    - fantaaaa
+    - Fantaaaa
 
 - synonym: pibb
   examples: |
@@ -855,3 +892,7 @@ nlu:
     - Mr Pibb
     - dr Pepper
     - dr pepper
+    - mrpibb
+    - MrPibb
+    - drpepper
+    - DrPepper

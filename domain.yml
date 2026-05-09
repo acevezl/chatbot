@@ -89,6 +89,12 @@ slots:
     mappings:
       - type: custom
 
+  # Slot para preservar el pickup code
+  pickup_code:
+    type: text
+    mappings:
+      - type: custom
+
 forms:
   order_form:
     required_slots:
@@ -126,7 +132,7 @@ responses:
     - text: "We have Coke, Fanta, and Pibb. What would you like?"
   
   utter_ask_what_else:
-    - text: "Alright. What else?"
+    - text: "Alright. What else can I get you?"
   
   utter_empty_order:
     - text: "It seems you haven't ordered anything. What can I get you?"

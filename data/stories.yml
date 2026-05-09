@@ -22,7 +22,6 @@ stories:
     - action: action_add_drink_to_order
     - intent: done_ordering
     - action: action_confirm_order
-    - action: utter_confirm
     - intent: confirm_order
     - action: action_submit_order
     - action: utter_goodbye
@@ -36,7 +35,6 @@ stories:
     - action: action_add_pizza_to_order
     - intent: done_ordering
     - action: action_confirm_order
-    - action: utter_confirm
     - intent: confirm_order
     - action: action_submit_order
     - action: utter_goodbye
@@ -47,7 +45,6 @@ stories:
     - action: action_add_pizza_to_order
     - intent: done_ordering
     - action: action_confirm_order
-    - action: utter_confirm
     - intent: confirm_order
     - action: action_submit_order
     - action: utter_goodbye
@@ -58,10 +55,15 @@ stories:
     - action: action_add_drink_to_order
     - intent: done_ordering
     - action: action_confirm_order
-    - action: utter_confirm
     - intent: confirm_order
     - action: action_submit_order
     - action: utter_goodbye
+
+- story: User adds drink after what else
+  steps:
+    - action: utter_ask_what_else
+    - intent: add_drink_to_order
+    - action: action_add_drink_to_order
 
 - story: Multiple pizzas and drinks
   steps:
@@ -76,7 +78,6 @@ stories:
     - action: action_add_drink_to_order
     - intent: done_ordering
     - action: action_confirm_order
-    - action: utter_confirm
     - intent: confirm_order
     - action: action_submit_order
     - action: utter_goodbye
@@ -90,7 +91,6 @@ stories:
     - action: action_add_pizza_to_order
     - intent: done_ordering
     - action: action_confirm_order
-    - action: utter_confirm
     - intent: deny_order
     - action: action_start_restart_order
     - action: utter_restart_order
@@ -135,7 +135,14 @@ stories:
     - action: action_add_drink_to_order
     - intent: done_ordering
     - action: action_confirm_order
-    - action: utter_confirm
     - intent: confirm_order
     - action: action_submit_order
     - action: utter_goodbye
+
+# User asks about drinks then orders drinks
+- story: ask drink types then order drink
+  steps:
+    - intent: ask_drink_types
+    - action: utter_ask_drink_type
+    - intent: add_drink_to_order
+    - action: action_add_drink_to_order

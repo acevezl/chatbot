@@ -101,6 +101,7 @@ class ActionStartRestartOrder(Action):
 			SlotSet("pizza_type", None),
 			SlotSet("pizza_size", None),
 			SlotSet("drink", None),
+			SlotSet("pickup_code", None),
 		]
 	
 class ActionAddPizzaToOrder(Action):
@@ -212,9 +213,16 @@ class ActionConfirmOrder(Action):
 			tracker: Tracker,
 			domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 	
+		order_items = tracker.get_slot("order_items") or []
+
+		if not order_items:
+			dispatcher.utter_message(response="utter_empty_order")
+			return []
+		
 		summary = summarize_order(tracker)
 
 		dispatcher.utter_message(summary)
+		dispatcher.utter_message(response="utter_confirm")
 
 		return []
 
@@ -226,15 +234,18 @@ class ActionSubmitOrder(Action):
 	def run(self, dispatcher: CollectingDispatcher,
 			tracker: Tracker,
 			domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+		
+		pickup_code = tracker.get_slot("pickup_code")
 
-		code = "PIZZA-" + "".join(
-			random.choices(string.ascii_uppercase + string.digits, k=4)
-		)
+		if not pickup_code:
+			pickup_code = "PIZZA-" + "".join(
+				random.choices(string.ascii_uppercase + string.digits, k=4)
+			)
 
 		dispatcher.utter_message(
 			text=(
-				f"Here's your pickup code: {code}\n"
+				f"Here's your pickup code: {pickup_code}\n"
 			)
 		)
 
-		return []
+		return [SlotSet("pickup_code", pickup_code)]
