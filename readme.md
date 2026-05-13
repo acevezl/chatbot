@@ -1,10 +1,75 @@
 # Pizza Chatbot with RASA
 
-## Stories
+## How to run
+Professor Juan, please follow these instructions to install and run the chatbot.
 
-### Order Pizza
-The main functionality of the chatbot is to help customers to place a pizza + drinks order. 
+**Important:** This conversational agent specifically requires Python `3.10.x` due to RASA dependencies. It will not run with newer or older versions. A .venv is highly recommended to run this bot.
 
+### Create a Virtual Environment (.venv) with Python 3.10.20
+```
+cd ~/rasa-chatbot
+brew install python@3.10
+python3.10 -m venv rasa-env
+python --version
+```
+
+You should see Python `3.10.x` and your prompt should read something like:
+```
+(rasa-env) [prompt] $
+```
+
+#### Install RASA inside the .venv
+```
+python -m pip install --upgrade pip
+pip install rasa
+```
+**Note:** Make sure you're inside ~/rasa-chatbot (`cd ~/rasa-chatbot`)
+
+#### Init RASA
+```
+source rasa-env/bin/activate
+export SQLALCHEMY_SILENCE_UBER_WARNING=1
+rasa init
+```
+
+#### From now on, always use the .venv when running this chatbot
+```
+cd ~/rasa-chatbot
+source rasa-env/bin/activate
+```
+
+#### Commands to run the chatbot
+1. On Termina 1: Run actions
+    ```
+    rasa run actions
+    ```
+2. On Terminal 2: Train model and run shell
+    ```
+    rasa train
+    rasa shell
+    ```
+
+#### Validate Chatbot (if needed)
+```
+rasa run validate
+```
+
+#### If you see this error: 
+```
+ERROR    rasa.core.actions.action  - Failed to run custom action 'action_start_restart_order'. Couldn't connect to the server at 'http://localhost:5055/webhook'. Is the server running? Error: Cannot connect to host localhost:5055 ssl:default [Connect call failed ('127.0.0.1', 5055)]
+```
+
+It means actions.py ain't running. Go to a separate terminal and run: 
+```
+run rasa actions
+```
+Then re-run rasa shell.
+
+
+## Sample runs
+The main functionality of the chatbot is to help customers to place a pizza + drinks order. Please follow the sample runs below to evaluate the bot's functionality.
+
+### Ordering pizza and drinks
 #### Happy Path
 1. User greets the bot
     ```
@@ -15,7 +80,9 @@ The main functionality of the chatbot is to help customers to place a pizza + dr
 
 2. Bot utters `greet`
     ```
-    Mamma mia! Welcome to Luigi-and-Dany's  pizzeria! What can I get you?`
+    Mamma mia! Welcome to Luigi-and-Dany's Pizzeria!
+    I'm a Pizza Bot, how can I help you today?
+    You can place an order or ask about our pizzas, sizes, drinks, promotions, and opening hours.
     ```
 
 3. User starts an order
@@ -25,82 +92,103 @@ The main functionality of the chatbot is to help customers to place a pizza + dr
     - I want a pizza
     ```
 
-4. Bot utters `ask_pizza_type`
+4. Bot utters `start_order`
     ```
-    What pizza type would you like? (Margherita, Marinara, Hawaiian, Veggie, or Funghi)
+    Alright, let's start your order. What would you like?
     ```
 
-5. User informs pizza type
+5. User asks for a pizza
     ```
     Examples:
-    - [margherita](pizza_type)
+    - I want a pizza
+    - Can I get a pizza?
     ```
 
-6. Bot utters `ask_pizza_size`
+6. Bot utters `ask_pizza_type`
     ```
-    What pizza size would you like? (Small, Medium, Large)
+    We have Margherita, Marinara, Hawaiian, Veggie, or Funghi, what would you like?
     ```
-
-7. User informs pizza size
+   
+7. User informs order
     ```
     Examples:
-    - [small](pizza_size)
+    - I want a margherita pizza
+    - I want a veggie pizza
     ```
 
-8. Bot utters an "item added" message
+8. Bot utters `ask_pizza_size`
+    ```
+    What size would you like? (Small, Medium, Large)
+    ```
+
+9.  User informs pizza size
+    ```
+    Examples:
+    - Small
+    - Sm
+    - Large
+    - md
+    ```
+
+10. Bot utters an "item added" message
     ```
     I've added a {pizza_size} {pizza_type} to your order
     ```
 
-9. Bot utters `ask_what_else`
+11. Bot utters `ask_what_else`
     ```
-    Alright. What else?
+    Alright. What else can I get you?
     ```
 
-10. User informs drink
+12. User informs drink
     ```
     Exmaples:
-    - [coke](drinks)
-    - Add a [fanta](drinks)
+    - coke
+    - Add a fanta
+    - I want a pibb
     ```
 
-11. Bot utters an "item added" message
+13. Bot utters an "item added" message
     ```
-    I've added a {pizza_size} {pizza_type} to your order
+    I've added a {drink} to your order.
     ```
 
-12. Bot utters `ask_what_else`, loop continues, user can add more pizzas or drinks, until they do a `deny` intent.
+14. Bot utters `ask_what_else`, loop continues, user can add more pizzas or drinks, until they do a `deny` intent.
 
-13. User says nothing else or no (i.e., `deny` intent)
+15. User says nothing else or no (i.e., `deny` intent)
     ```
     Examples:
     - nothing else
-    - no thank you
-
+    - nothing
+    - all set
     ```
 
-14. Bot summarizes order
+16. Bot summarizes order
+    ```
+    Here's your order:
+    + small margherita pizza: 12 €
+       - promo: -2 €
+    + coke: 3 €
+    ====================
+    Total: 13 €
+    ```
 
-15. Bot utters `confirm`
+17. Bot utters `confirm`
     ```
     Should I place this order?
     ```
 
-16. User says yes (i.e., `confirm_order`)
+18. User says yes (i.e., `confirm_order`)
     ```
     Examples:
     - yes
-    - a'ight
+    - yep
     ```
 
-17. Bot utters `submit`
+19. Bot utters `submit`
     ```
-    I will now make your order.
-    Here's your order:
-        {order_items}
-    Total: {total} €
-    Pickup code: {code}
-    Ciao!
+    Here's your pickup code: PIZZA-504G
+    Ciao! Come back soon for more delicious pizza and drinks from Luigi-and-Dany's Pizzeria!
     ```
 
 #### Alternate 1: User starts with order (skips greeting)
@@ -109,58 +197,77 @@ The main functionality of the chatbot is to help customers to place a pizza + dr
     ```
     Examples:
     - I want to place an order
+    - Can I place an order? 
+    ```
+
+##### Then, bot follows step 4 from happy path
+
+#### Alternate 2: User starts by asking for pizza (skips greeting, skips start order, asks for pizza)
+1. User asks for a pizza right away
+    ```
+    Examples:
     - I want a pizza
+    - Pizza
     ```
 
-2. Bot utters `greet`
-    ```
-    Mamma mia! Welcome to Luigi-and-Dany's  pizzeria! What can I get you?`
-    ```
+##### Then, bot follows step 6 from happy path
 
-3. Bot utters `ask_pizza_type`
-    ```
-    What pizza type would you like? (Margherita, Marinara, Hawaiian, Veggie, or Funghi)
-    ```
-
-##### After this, follow step 5 from happy path
-
-#### Alternate 2: User starst with specific order (skips greeting, skips start order)
+#### Alternate 3: User starts with specific pizza type (skips greeting, skips start order, asks for pizza type)
 
 1. User starts a specific order
     ```
     Examples:
-    - [small](pizza_size) pizza
-    - I want a [medium](pizza_size) pizza
+    - I want a veggie pizza
+    - I want a margherita
     ```
 
-2. Bot recognizes pizza_size and pizza_type, utters an "item added" message
+2. Bot recognizes pizza_type, and utters `ask_pizza_size`
     ```
-    I've added a {pizza_size} {pizza_type} to your order
+    What size would you like? (Small, Medium, Large)
+    ```
+
+3. User informs pizza size
+    ```
+    Examples:
+    - Medium
+    - md
+    ```
+
+4. Bot utters `ask_what_else`, loop continues, user can add more pizzas or drinks, until they do a `deny` intent.
+
+#### Alternate 4: User starts with specific pizza size and type
+
+1. User starts a specific order
+    ```
+    Examples:
+    - I want a large marge
+    - I want a medium veggie
+    ```
+
+2. Bot recognizes pizza_type and pizza_size, and adds the pizza to the order
+    ```
+    I've added a large margherita pizza to your order
     ```
 
 3. Bot utters `ask_what_else`, loop continues, user can add more pizzas or drinks, until they do a `deny` intent.
 
-##### After this, follow step 13 of happy path
-
-#### Alternate 3: User stars with specific drink order (skips greeting, skips start order)
+#### Alternate 5: User stars with specific drink order (skips greeting, skips start order, skips pizza)
 
 1. User starts a specific drink order
     ```
     Examples:
-    - [coke](drinks)
-    - I want a [pibb](drinks)
+    - I want a coke
+    - Gimme a pibb
     ```
 
-2. Bot recognizes pizza_size and pizza_type, utters an "item added" message
+2. Bot recognizes the drink type and utters an "item added" message
     ```
     I've added a {drink} to your order
     ```
 
 3. Bot utters `ask_what_else`, loop continues, user can add more pizzas or drinks, until they do a `deny` intent.
 
-##### After this, follow step 13 of happy path
-
-#### Alternate 4: Incorrect Order / Change Order
+#### Alternate 6: Incorrect Order / Change Order
 
 ##### After steps 1 through 14 of happy path, the customer replys with `deny` intent because the order is incorrect or they want to change it
 
@@ -180,7 +287,7 @@ The main functionality of the chatbot is to help customers to place a pizza + dr
 
 ##### After this, depending on user input, it can go to happy path, or any other alternate
 
-### Ask for Information
+### Asking for Information
 Another functionality of the ChatBot is to allow customers to ask for information regarding the menu (pizza types and prices), the pizza sizes, the drink types, and the opening hours.
 
 #### Ask for pizza types
@@ -217,13 +324,13 @@ Another functionality of the ChatBot is to allow customers to ask for informatio
 1. User asks what drinks are available
     ```
     Examples:
-    - what drinks do you have
-    - what drinks do you offer
+    - What drinks do you have
+    - What drinks do you offer
     ```
 
 2. Bot utters `drink_types`
     ```
-    We make small (12 €), medium (14 €) and large (18 €) pizzas
+    We have Coke, Fanta, and Pibb, all drinks are 3 €
     ```
 
 #### Ask for promotions
@@ -237,12 +344,32 @@ Another functionality of the ChatBot is to allow customers to ask for informatio
 
 2. Bot utters `promotions`
     ```
-    We make small (12 €), medium (14 €) and large (18 €) pizzas
+    All margherita pizzas of all sizes are 2 € off!
     ```
 
-## Tutorials
+#### Ask to summarize order
+
+1. At any point, User asks to summarize order
+    ```
+    Examples:
+    - Summarize my order
+    - What have I ordered?
+    ```
+
+2. If the orred is NOT empty (the user has asked for pizzas and/or drinks already), the bot summarizes the order and utters `utter_confirm` to confirm if the order can be submitted.
+    ```
+
+    ```
+
+3. If the order is empty, the bot informs the user they haven't ordered anything and asks what to get them.
+   ```
+   It seems you haven't ordered anything. What can I get you?
+   ```
+
+## Reference
 
 ### RASA Forms Tutorial
+The following tutorial was reviewed as a base to build this chatbot.
 https://www.youtube.com/watch?v=hIWnpyTWsLQ
 
 RASA form is a building block to fetch relevant information from the conversatino and store it in long-lived slots to use in the rest of the conversation.
@@ -250,40 +377,3 @@ RASA form is a building block to fetch relevant information from the conversatin
 An active form can be thought as a loop that will keep asking for information that's missing. The form will keep asking for information until all the slots are filled.
 
 RASA forms can be configured to detect slot values from entities.
-
-
-## Activate .venv (With Python 3.10.20)
-source ~/rasa-chatbot/rasa-env/bin/activate
-
-## Init RASA
-cd ~/rasa-chatbot
-source rasa-env/bin/activate
-export SQLALCHEMY_SILENCE_UBER_WARNING=1
-rasa init
-
-## Validate Data
-rasa run validate
-
-## Run Actions
-rasa run actions
-
-## Train Rasa
-rasa train
-
-## Run RASA
-rasa shell
-
-## Debugging
-
-### ERROR: Failed to run custom action
-
-If this error is displayed:
-```
-ERROR    rasa.core.actions.action  - Failed to run custom action 'action_start_restart_order'. Couldn't connect to the server at 'http://localhost:5055/webhook'. Is the server running? Error: Cannot connect to host localhost:5055 ssl:default [Connect call failed ('127.0.0.1', 5055)]
-```
-
-It means actions aren't running. Go to a separate terminal and run: 
-```
-run rasa actions
-```
-Then re-run rasa shell.
